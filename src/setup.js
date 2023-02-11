@@ -1,5 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
+const fs = require('fs').promises;
+const path = require('path');
 
 const client = new Client({
   intents: [
@@ -9,48 +11,48 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
   ],
 });
+
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-// Bot commands related code
-client.on('messageCreate', (message) => {
+client.on('messageCreate', async (message) => {
   if (!message.content.startsWith('!') || message.author.bot) return;
-  const args = message.content.slice(1).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
 
-  console.log(
-    'O comando foi: ' +
-      command +
-      `${
-        args.length < 1 ? '. E não teve argumentos' : ' e os argumentos foram'
-      }` +
-      args
-  );
+  const userArgument = message.content.slice(1).trim().split(/ +/);
+  const userCommand = userArgument.shift().toLowerCase();
+
+  console.log('O usuário digitou: ', userCommand + ' ' + userArgument);
+  
+  try {
+    const command = await searchCommand(userCommand);
+    if (command) {
+      await command.execute(message, userArgument);
+    } else {
+      message.reply('Comando não encontrado');
+    }
+  } catch (error) {
+    console.error(error);
+    message.reply('Ocorreu um erro ao executar o comando.');
+  }
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN).catch(console.error);
 
-const searchCommand = async (commandName) => {
-  const fs = require('node:fs');
-  const path = require('node:path');
+async function searchCommand(commandName) {
   const commandsPath = path.join(__dirname, 'commands');
-  const commandFiles = fs
-    .readdirSync(commandsPath)
-    .filter((file) => file.endsWith('.js'));
+  const commandFiles = await fs.readdir(commandsPath);
+  const commands = commandFiles
 
-  for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
+    .filter((file) => file.endsWith('.js'))
+    .map((file) => require(`${commandsPath}/${file}`));
 
-    if ('data' in command && 'execute' in command) {
-      if (command.data.name === commandName) {
-        return command;
-      }
-    } else {
-      console.log(
-        `Esse comando em ${filePath} está com "data" ou "execute ausentes"`
-      );
-    }
+  try {
+    const retrievedCommand = commands.find(
+      (command) => command.data.name === commandName
+    );
+    return retrievedCommand;
+  } catch (error) {
+    console.log('Algum comando não possui o nome ou a função execute');
   }
-};
+}
