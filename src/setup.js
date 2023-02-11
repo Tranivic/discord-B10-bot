@@ -53,6 +53,6 @@ async function searchCommand(commandName) {
     );
     return retrievedCommand;
   } catch (error) {
-    console.log('Algum comando não possui o nome ou a função execute');
+    console.log('Algum comando não possui a propriedade data ou a função execute');
   }
 }
