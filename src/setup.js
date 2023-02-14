@@ -17,21 +17,25 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', async (message) => {
-  if (!message.content.startsWith('!') || message.author.bot) return;
-
-  const userArgument = message.content.slice(1).trim().split(/ +/);
-  const userCommand = userArgument.shift().toLowerCase();
-
-  console.log('O usuário digitou: ', userCommand + ' ' + userArgument);
-
   try {
+    if (!message.content.startsWith('!') || message.author.bot) return;
+
+    const userArgument = message.content.slice(1).trim().split(/ +/);
+    const userCommand = userArgument.shift().toLowerCase();
+
+    console.log('O usuário digitou: ', userCommand + ' ' + userArgument);
+
     const command = await searchCommand(userCommand);
     console.log('Comando encontrado: ', command);
     if (command) {
+      message.react('👍');
       await command.execute(message, userArgument);
+      message.react('✅');
     } else {
-      console.log('Comando não encontrado ', command)
-      message.reply('Comando não encontrado');
+      console.log('Comando não encontrado ', command);
+      message.reply(
+        'Comando não encontrado, digite !ajuda para ver os comandos'
+      );
     }
   } catch (error) {
     console.error(error);
