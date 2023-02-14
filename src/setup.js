@@ -23,12 +23,14 @@ client.on('messageCreate', async (message) => {
   const userCommand = userArgument.shift().toLowerCase();
 
   console.log('O usuário digitou: ', userCommand + ' ' + userArgument);
-  
+
   try {
     const command = await searchCommand(userCommand);
+    console.log('Comando encontrado: ', command);
     if (command) {
       await command.execute(message, userArgument);
     } else {
+      console.log('Comando não encontrado ', command)
       message.reply('Comando não encontrado');
     }
   } catch (error) {
@@ -53,6 +55,8 @@ async function searchCommand(commandName) {
     );
     return retrievedCommand;
   } catch (error) {
-    console.log('Algum comando não possui a propriedade data ou a função execute');
+    console.log(
+      'Algum comando não possui a propriedade data ou a função execute'
+    );
   }
 }
