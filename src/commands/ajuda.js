@@ -21,9 +21,11 @@ module.exports = {
         };
         formatedReply += `!${commandFind.name} : ${commandFind.description} \n`;
       });
+      
       await interaction.author.send(formatedReply);
+      await interaction.reactions.removeAll();
       await interaction.react('✅');
-      interaction;
+
     } catch (error) {
       await interaction.reply(
         'Ocorreu algum erro ao enviar a lista de comandos por DM, verifique se você tem as mensagens privadas ativadas.'

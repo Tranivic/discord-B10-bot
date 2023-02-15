@@ -22,9 +22,9 @@ client.on('messageCreate', async (message) => {
     const userName = message.author.username;
     const userArgument = message.content.slice(1).trim().split(/ +/);
     const userCommand = userArgument.shift().toLowerCase();
-
     console.log(`O usuário ${userName} digitou: `, userCommand + ' ' + userArgument);
-
+    message.react('🤖');
+    
     const command = await searchCommand(userCommand, message);
     if (command) {
       await command.execute(message, userArgument);

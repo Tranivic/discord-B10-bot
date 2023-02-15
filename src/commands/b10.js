@@ -14,7 +14,6 @@ module.exports = {
   async execute(interaction, requestedPrompt) {
     requestedPrompt = requestedPrompt.join(' ');
     try {
-      await interaction.react('🤖');
       const openai = new OpenAIApi(configuration);
       const completion = await openai.createCompletion({
         model: 'text-davinci-003',
