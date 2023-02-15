@@ -16,6 +16,7 @@ module.exports = {
     requestedPrompt = requestedPrompt.join(' ');
     try {
       const openai = new OpenAIApi(configuration);
+
       const completion = await openai.createCompletion({
         model: 'text-davinci-003',
         prompt: `${requestedPrompt}`,
@@ -25,13 +26,17 @@ module.exports = {
         stop: '',
         temperature: 0.5,
       });
+
       const messageResponse = completion.data.choices[0].text;
       interaction.reply(messageResponse);
     } catch (error) {
       console.log(error);
-      interaction.reactions.removeAll();
-      interaction.reply('Algo deu errado com a integração com o OpenAI');
-      interaction.react('❌');
+      interaction.reactions
+        .removeAll()
+        .then(() => interaction.react('❌'))
+        .then(() =>
+          interaction.reply('Algo deu errado com a integração com o OpenAI')
+        );
     }
   },
 };

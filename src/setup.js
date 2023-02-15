@@ -19,16 +19,16 @@ client.once('ready', () => {
 client.on('messageCreate', async (message) => {
   try {
     if (!message.content.startsWith('!') || message.author.bot) return;
-
+    const userName = message.author.username;
     const userArgument = message.content.slice(1).trim().split(/ +/);
     const userCommand = userArgument.shift().toLowerCase();
 
-    console.log('O usuário digitou: ', userCommand + ' ' + userArgument);
+    console.log(`O usuário ${userName} digitou: `, userCommand + ' ' + userArgument);
 
     const command = await searchCommand(userCommand);
-    console.log('Comando encontrado: ', command);
     if (command) {
       await command.execute(message, userArgument);
+      console.log('Comando executado: ', command.data.name)
     } else {
       console.log('Comando não encontrado ', command);
       message.reply(
