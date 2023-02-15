@@ -1,5 +1,5 @@
 # Discord Bot (AI-B10) Project 🤖
-
+![bot logo](https://imgur.com/a/Qwr9XW0)
 This is a Discord bot project created with JavaScript. The goal of this project is to help developers improve their Discord bot development skills.
 
 ## Features 📊
