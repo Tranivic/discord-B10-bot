@@ -1,14 +1,14 @@
 # Discord Bot (AI-B10) Project 🤖
 <img src="https://i.imgur.com/T0TuFjv.jpg" width="220"  height="200" alt="discord bot logo" />
 <br>
-This is a Discord bot project created with JavaScript. The goal of this project is to help developers improve their Discord bot development skills.
+This is a Discord bot project created with JavaScript. The goal of this project is the challenge to integrate openAI api into bot responses.
 
 ## Features 📊
 
 -   Respond to user commands in Discord channels
 -   Perform actions in response to commands, such as sending messages and reacting to messages
 -   Handle events, such as users messages.
-- - Integrate with open AI Api
+-   Integrate with open AI Api
 
 ## Technical Overview 🧐
 
