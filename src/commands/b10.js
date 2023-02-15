@@ -12,11 +12,10 @@ module.exports = {
       'Faz a integração com o OpenAI, ira responder o que o usuario digitar',
   },
   async execute(interaction, requestedPrompt) {
-    interaction.react('🤖');
     requestedPrompt = requestedPrompt.join(' ');
     try {
+      await interaction.react('🤖');
       const openai = new OpenAIApi(configuration);
-
       const completion = await openai.createCompletion({
         model: 'text-davinci-003',
         prompt: `${requestedPrompt}`,

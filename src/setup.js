@@ -25,7 +25,7 @@ client.on('messageCreate', async (message) => {
 
     console.log(`O usuário ${userName} digitou: `, userCommand + ' ' + userArgument);
 
-    const command = await searchCommand(userCommand);
+    const command = await searchCommand(userCommand, message);
     if (command) {
       await command.execute(message, userArgument);
       console.log('Comando executado: ', command.data.name)
@@ -43,7 +43,7 @@ client.on('messageCreate', async (message) => {
 
 client.login(process.env.DISCORD_TOKEN).catch(console.error);
 
-async function searchCommand(commandName) {
+async function searchCommand(commandName, userMessage) {
   const commandsPath = path.join(__dirname, 'commands');
   const commandFiles = await fs.readdir(commandsPath);
   const commands = commandFiles
@@ -53,12 +53,11 @@ async function searchCommand(commandName) {
 
   try {
     const retrievedCommand = commands.find(
-      (command) => command.data.name === commandName
+      (command) => command.data.name === commandName  || command.data.aliases && command.data.aliases.includes(commandName)
     );
     return retrievedCommand;
+
   } catch (error) {
-    console.log(
-      'Algum comando não possui a propriedade data ou a função execute'
-    );
+    console.log('Algum comando na pasta commands está com propriedades quebradas', error)
   }
 }
