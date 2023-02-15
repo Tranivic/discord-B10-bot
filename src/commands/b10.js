@@ -12,6 +12,7 @@ module.exports = {
       'Faz a integração com o OpenAI, ira responder o que o usuario digitar',
   },
   async execute(interaction, requestedPrompt) {
+    interaction.react('🤖');
     requestedPrompt = requestedPrompt.join(' ');
     try {
       const openai = new OpenAIApi(configuration);
@@ -28,7 +29,9 @@ module.exports = {
       interaction.reply(messageResponse);
     } catch (error) {
       console.log(error);
-      interaction.reply('Algo deu errado chefia :/');
+      interaction.reactions.removeAll();
+      interaction.reply('Algo deu errado com a integração com o OpenAI');
+      interaction.react('❌');
     }
   },
 };

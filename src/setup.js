@@ -28,9 +28,7 @@ client.on('messageCreate', async (message) => {
     const command = await searchCommand(userCommand);
     console.log('Comando encontrado: ', command);
     if (command) {
-      message.react('👍');
       await command.execute(message, userArgument);
-      message.react('✅');
     } else {
       console.log('Comando não encontrado ', command);
       message.reply(
