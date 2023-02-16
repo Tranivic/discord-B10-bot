@@ -1,7 +1,7 @@
 # Discord Bot (AI-B10) Project 🤖
 <img src="https://i.imgur.com/T0TuFjv.jpg" width="220"  height="200" alt="discord bot logo" />
 <br>
-This is a Discord bot project created with JavaScript. The goal of this project is the challenge to integrate openAI api into bot responses.
+This is a Discord bot project created with JavaScript. The goal of this project is the challenge to integrate openAI api into bot responses when user request.
 
 ## Features 📊
 
@@ -40,9 +40,6 @@ To use this Discord bot on your own server, follow these steps:
 2.  Create a new Discord bot application in the [Discord Developer Portal](https://discord.com/developers/applications).
 3.  Add the bot to your Discord server by following the instructions provided in the Discord Developer Portal.
 4.  Create a `.env` file in the project directory and add the following variables:
-
-makefileCopy code
-
     DISCORD_TOKEN=<your bot token here>
     OPENAI_API_KEY=<your OpenAI API key here>
 
@@ -53,7 +50,7 @@ Once the bot is running, you can test its features in your Discord server by sen
 
 You can test the bot on a Discord server to experience its functionality and integration with the OpenAI API.
 
-> ⚠️ Note: This description does not include actual code, as the goal of this project is to train Discord bot development skills.
+>  Note: You also can invite the deployed bot to your discord server [here](https://discord.com/api/oauth2/authorize?client_id=1068150893536616458&permissions=2048&scope=applications.commands%20bot)
 
 ## Contact 💬
 
